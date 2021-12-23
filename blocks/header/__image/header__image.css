@@ -1,0 +1,9 @@
+.header__image{
+    width: 880px;
+}
+
+@media screen and (max-width: 320px) {
+    .header__image{
+        width: 320px;
+    }
+}
