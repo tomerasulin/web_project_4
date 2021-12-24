@@ -1,0 +1,7 @@
+.profile__add-btn {
+  border: none;
+  background-color: transparent;
+  outline: none;
+  padding: 0;
+  flex: auto;
+}

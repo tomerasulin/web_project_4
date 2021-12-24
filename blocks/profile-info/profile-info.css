@@ -1,0 +1,7 @@
+.profile-info{
+    display: grid;
+    grid-template-columns: 1fr min-content;
+    grid-template-rows: repeat(2, 1fr);
+    gap: 16px 18px;
+    align-self: flex-end;
+}
