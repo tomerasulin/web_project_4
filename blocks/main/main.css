@@ -4,7 +4,7 @@
 }
 
 @media screen and (max-width: 880px) {
-  .main{
+  .main {
     max-width: 320px;
     margin: 0 19px;
   }

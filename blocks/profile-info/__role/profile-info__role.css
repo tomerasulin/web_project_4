@@ -2,7 +2,7 @@
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
-  line-height: 21.78px;
+  line-height: 1.21;
   color: #ffffff;
   margin: 0;
   grid-column-start: 1;
@@ -10,9 +10,8 @@
 }
 
 @media screen and (max-width: 320px) {
-  .profile-info__role{
+  .profile-info__role {
     font-size: 14px;
-    line-height: 16.94px;
     text-align: center;
   }
 }

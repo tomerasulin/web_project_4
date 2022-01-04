@@ -9,7 +9,7 @@
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
-  line-height: 22px;
+  line-height: 1.22;
   text-align: center;
   color: #ffffff;
 }
@@ -19,6 +19,6 @@
     width: 238px;
     margin: 46px 22px 25px;
     font-size: 14px;
-    line-height: 16.94px;
+    line-height: 1.21;
   }
 }

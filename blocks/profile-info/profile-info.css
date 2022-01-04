@@ -1,15 +1,15 @@
-.profile-info{
-    display: grid;
-    grid-template-columns: 1fr min-content;
-    grid-template-rows: repeat(2, 1fr);
-    gap: 16px 18px;
-    align-self: flex-end;
+.profile-info {
+  display: grid;
+  grid-template-columns: 1fr min-content;
+  grid-template-rows: repeat(2, 1fr);
+  gap: 16px 18px;
+  align-self: flex-end;
 }
 
 @media screen and (max-width: 320px) {
-    .profile-info{
-        gap: 14px 10px;
-        align-self: center;
-        margin-top: 26.25px;
-    }
+  .profile-info {
+    gap: 14px 10px;
+    align-self: center;
+    margin-top: 26.25px;
+  }
 }
