@@ -1,4 +1,8 @@
-.element__like-btn{
-    width: 21px;
-    height: 19px;
+.element__like-btn {
+  width: 21px;
+  height: 19px;
+}
+
+.element__like-btn:hover {
+    opacity: 0.5;
 }

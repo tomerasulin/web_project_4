@@ -1,0 +1,14 @@
+.popup-box__line {
+  width: 358px;
+  margin: 13.26px 36px 0;
+  opacity: 0.2;
+  border: 1px solid #000000;
+  border-bottom: hidden;
+}
+
+@media screen and (max-width: 880px) {
+  .popup-box__line {
+    margin: 9px 22px 0;
+    width: 238px;
+  }
+}

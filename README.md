@@ -2,15 +2,23 @@
 
 ### Overview
 
+* Description
 * Figma
-* Images
+* Technologies and Techniques
+* Link to the project on GitHub Pages
+
+**Description**
+This project represent an interactive web page where users can add, remove, or like photos.
 
 **Figma**
 
 * [Link to the project in Figma](https://www.figma.com/file/SurN1jaeEQIhuZEDMhmWWf/Sprint-4-Around-The-U.S.-desktop-mobile?node-id=0%3A1)
 
-**Images**
+**Technologies and Techniques**
 
-The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster. 
+* HTML5, CSS3, Grid and Flexbox layouts, media queries
+* JavaScript - functions, handling events, interactive buttons
 
-Have fun with JavaScript!
+**Link to the project on GitHub pages**
+
+[Link to the project in GitHub Pages]()

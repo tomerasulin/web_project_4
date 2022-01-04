@@ -1,18 +1,18 @@
-.profile-info__role {
-  font-style: normal;
+.footer__text {
   font-weight: 400;
+  font-style: normal;
   font-size: 18px;
   line-height: 21.78px;
-  color: #ffffff;
+  color: #545454;
   margin: 0;
-  grid-column-start: 1;
-  grid-column-end: 3;
+  padding: 0;
+  width: 318px;
 }
 
 @media screen and (max-width: 320px) {
-  .profile-info__role{
+  .footer__text {
     font-size: 14px;
     line-height: 16.94px;
-    text-align: center;
+    width: 282px;
   }
 }

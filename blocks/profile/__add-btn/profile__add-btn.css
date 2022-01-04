@@ -1,7 +1,16 @@
 .profile__add-btn {
-  border: none;
+  border: 2px solid #ffffff;
   background-color: transparent;
-  outline: none;
   padding: 0;
-  flex: auto;
+  margin: 35px 0 35px 165px;
+  border-radius: 2px;
+  width: 150px;
+  height: 50px;
+}
+
+@media screen and (max-width: 880px) {
+  .profile__add-btn {
+    width: 282px;
+    margin: 36px 0 0;
+  }
 }

@@ -5,3 +5,11 @@
     gap: 16px 18px;
     align-self: flex-end;
 }
+
+@media screen and (max-width: 320px) {
+    .profile-info{
+        gap: 14px 10px;
+        align-self: center;
+        margin-top: 26.25px;
+    }
+}

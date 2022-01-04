@@ -11,9 +11,10 @@
     <header class="header">
       <img
         class="header__image"
-        src="./images/Header.svg"
+        src="./images/HeaderLogo.svg"
         alt="Around the U.S. logo"
       />
+      <div class="header__line"></div>
     </header>
     <main class="main">
       <section class="profile">
@@ -25,7 +26,7 @@
         <div class="profile-info">
           <h2 class="profile-info__name">Jacques Cousteau</h2>
           <p class="profile-info__role">Explorer</p>
-          <button class="profile-info__edit-btn">
+          <button class="profile-info__edit-btn popup-box_opened" type="button">
             <img
               class="profile-info__btn-image"
               src="./images/Edit Button.svg"
@@ -36,7 +37,7 @@
         <button class="profile__add-btn">
           <img
             class="profile__btn-image"
-            src="./images/Add Button.svg"
+            src="./images/AddSign.svg"
             alt="Add button"
           />
         </button>
@@ -51,7 +52,7 @@
             />
             <div class="element__group">
               <p class="element__text">Yosemite Valley</p>
-              <button class="element__btn">
+              <button class="element__btn" type="button">
                 <img
                   class="element__like-btn"
                   src="./images/Like Logo.svg"
@@ -68,7 +69,7 @@
             />
             <div class="element__group">
               <p class="element__text">Lake Louise</p>
-              <button class="element__btn">
+              <button class="element__btn" type="button">
                 <img
                   class="element__like-btn"
                   src="./images/Like Logo.svg"
@@ -85,7 +86,7 @@
             />
             <div class="element__group">
               <p class="element__text">Bald Mountions</p>
-              <button class="element__btn">
+              <button class="element__btn" type="button">
                 <img
                   class="element__like-btn"
                   src="./images/Like Logo.svg"
@@ -102,7 +103,7 @@
             />
             <div class="element__group">
               <p class="element__text">Latemar</p>
-              <button class="element__btn">
+              <button class="element__btn" type="button">
                 <img
                   class="element__like-btn"
                   src="./images/Like Logo.svg"
@@ -115,11 +116,13 @@
             <img
               class="element__image"
               src="./images/Vanoise Nationa....jpg"
-              alt="Vanoise Nationa..."
+              alt="Vanoise National Park"
             />
             <div class="element__group">
-              <p class="element__text">Vanoise Nationa...</p>
-              <button class="element__btn">
+              <p class="element__text element__text_overflow">
+                Vanoise National Park
+              </p>
+              <button type="button" class="element__btn">
                 <img
                   class="element__like-btn"
                   src="./images/Like Logo.svg"
@@ -136,7 +139,7 @@
             />
             <div class="element__group">
               <p class="element__text">Lago di Braies</p>
-              <button class="element__btn">
+              <button class="element__btn" type="button">
                 <img
                   class="element__like-btn"
                   src="./images/Like Logo.svg"
@@ -148,5 +151,35 @@
         </ul>
       </section>
     </main>
+    <footer class="footer">
+      <p class="footer__text">© 2021 Around The U.S.</p>
+    </footer>
+    <!--
+      edit profile popup box
+    -->
+    <div class="popup-box">
+      <div class="popup-box__container">
+        <button type="button" class="popup-box__close-btn"></button>
+        <form class="popup-box__form" name="edit-profile">
+          <h3 class="popup-box__title">Edit profile</h3>
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            class="popup-box__input popup-box__input_type_name"
+          />
+          <div class="popup-box__line"></div>
+          <input
+            type="text"
+            name="about"
+            placeholder="About me"
+            class="popup-box__input popup-box__input_type_about"
+          />
+          <div class="popup-box__line"></div>
+          <button type="submit" class="popup-box__save-btn">Save</button>
+        </form>
+      </div>
+    </div>
+    <script src="./scripts/index.js" defer></script>
   </body>
 </html>

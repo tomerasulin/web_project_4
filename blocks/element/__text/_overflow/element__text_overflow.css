@@ -1,0 +1,5 @@
+.element__text_overflow {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

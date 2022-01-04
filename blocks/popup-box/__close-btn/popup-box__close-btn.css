@@ -1,0 +1,16 @@
+.popup-box__close-btn {
+  background: transparent url(../../../images/Close\ Icon.svg) center no-repeat;
+  width: 40px;
+  height: 40px;
+  align-self: flex-end;
+  border: none;
+  padding: 0;
+}
+
+@media screen and (max-width: 880px) {
+  .popup-box__close-btn {
+    width: 26px;
+    height: 26px;
+    margin: 0 18.62px 0 264.62px;
+  }
+}

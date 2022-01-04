@@ -1,0 +1,13 @@
+.popup-box__container {
+  display: flex;
+  flex-direction: column;
+  width: 470px;
+  height: 370px;
+}
+
+@media screen and (max-width: 880px) {
+  .popup-box__container {
+    width: 312px;
+    height: calc(322px + 26px + 13.62px);
+  }
+}
