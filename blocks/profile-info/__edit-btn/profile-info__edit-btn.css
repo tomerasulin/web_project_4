@@ -9,3 +9,7 @@
   grid-row-start: 1;
   align-self: center;
 }
+
+.profile-info__edit-btn:hover {
+  opacity: 0.6;
+}

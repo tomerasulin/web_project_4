@@ -14,3 +14,7 @@
     margin: 36px 0 0;
   }
 }
+
+.profile__add-btn:hover {
+  opacity: 0.6;
+}
