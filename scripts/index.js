@@ -6,8 +6,6 @@ let likeBtn = document.querySelectorAll('.element__like-btn');
 let profileName = document.querySelector('.profile-info__name');
 let profileAbout = document.querySelector('.profile-info__role');
 
-console.log(profileName.textContent);
-
 function togglePopup(){
     popupBox.classList.toggle('popup-box_opened');
     let name = document.querySelector('.popup-box__input_type_name');

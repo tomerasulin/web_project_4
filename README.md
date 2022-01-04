@@ -21,4 +21,4 @@ This project represent an interactive web page where users can add, remove, or l
 
 **Link to the project on GitHub pages**
 
-[Link to the project in GitHub Pages]()
+* [Link to the project in GitHub Pages](https://tomerasulin.github.io/web_project_4/)
