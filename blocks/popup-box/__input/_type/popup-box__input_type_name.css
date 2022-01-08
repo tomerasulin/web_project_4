@@ -1,9 +1,2 @@
 .popup-box__input_type_name {
-  margin-top: 54px;
-}
-
-@media screen and (max-width: 880px) {
-  .popup-box__input_type_name {
-    margin-top: 76px;
-  }
 }

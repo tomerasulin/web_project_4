@@ -2,10 +2,12 @@
   width: 120px;
   height: 120px;
   margin: 3.75px 26.25px 3.75px 0;
+  border-radius: 50%;
 }
 
 @media screen and (max-width: 880px) {
   .profile__avatar {
     align-self: center;
+    margin: 0 0 26.25px;
   }
 }

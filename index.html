@@ -14,33 +14,30 @@
         src="./images/HeaderLogo.svg"
         alt="Around the U.S. logo"
       />
-      <div class="header__line"></div>
     </header>
     <main class="main">
       <section class="profile">
         <img
           class="profile__avatar"
-          src="./images/Avatar.svg"
+          src="./images/Avatar.jpg"
           alt="Avatar picture"
         />
         <div class="profile-info">
-          <h2 class="profile-info__name">Jacques Cousteau</h2>
-          <p class="profile-info__role">Explorer</p>
-          <button class="profile-info__edit-btn popup-box_opened" type="button">
-            <img
-              class="profile-info__btn-image"
-              src="./images/EditButton.svg"
-              alt="Edit Button"
-            />
-          </button>
+          <div class="profile__name-wrapper">
+            <h1 class="profile__name">Jacques Cousteau</h1>
+            <button
+              class="profile__edit-btn"
+              type="button"
+              aria-label="Edit"
+            ></button>
+          </div>
+          <p class="profile__role">Explorer</p>
         </div>
-        <button class="profile__add-btn">
-          <img
-            class="profile__btn-image"
-            src="./images/AddSign.svg"
-            alt="Add button"
-          />
-        </button>
+        <button
+          class="profile__add-btn"
+          type="button"
+          aria-label="Add"
+        ></button>
       </section>
       <section class="elements">
         <ul class="elements__list">
@@ -51,14 +48,12 @@
               alt="Yosemite Valley"
             />
             <div class="element__group">
-              <p class="element__text">Yosemite Valley</p>
-              <button class="element__btn" type="button">
-                <img
-                  class="element__like-btn"
-                  src="./images/LikeLogo.svg"
-                  alt="Like Logo"
-                />
-              </button>
+              <h2 class="element__text">Yosemite Valley</h2>
+              <button
+                class="element__like-btn"
+                type="button"
+                aria-label="Like"
+              ></button>
             </div>
           </li>
           <li class="element">
@@ -68,14 +63,12 @@
               alt="Lake Louise"
             />
             <div class="element__group">
-              <p class="element__text">Lake Louise</p>
-              <button class="element__btn" type="button">
-                <img
-                  class="element__like-btn"
-                  src="./images/LikeLogo.svg"
-                  alt="Like Logo"
-                />
-              </button>
+              <h2 class="element__text">Lake Louise</h2>
+              <button
+                class="element__like-btn"
+                type="button"
+                aria-label="Like"
+              ></button>
             </div>
           </li>
           <li class="element">
@@ -85,14 +78,12 @@
               alt="Bald Mountions"
             />
             <div class="element__group">
-              <p class="element__text">Bald Mountions</p>
-              <button class="element__btn" type="button">
-                <img
-                  class="element__like-btn"
-                  src="./images/LikeLogo.svg"
-                  alt="Like Logo"
-                />
-              </button>
+              <h2 class="element__text">Bald Mountions</h2>
+              <button
+                class="element__like-btn"
+                type="button"
+                aria-label="Like"
+              ></button>
             </div>
           </li>
           <li class="element">
@@ -102,14 +93,12 @@
               alt="Latemar"
             />
             <div class="element__group">
-              <p class="element__text">Latemar</p>
-              <button class="element__btn" type="button">
-                <img
-                  class="element__like-btn"
-                  src="./images/LikeLogo.svg"
-                  alt="Like Logo"
-                />
-              </button>
+              <h2 class="element__text">Latemar</h2>
+              <button
+                class="element__like-btn"
+                type="button"
+                aria-label="Like"
+              ></button>
             </div>
           </li>
           <li class="element">
@@ -119,16 +108,12 @@
               alt="Vanoise National Park"
             />
             <div class="element__group">
-              <p class="element__text element__text_overflow">
-                Vanoise National Park
-              </p>
-              <button type="button" class="element__btn">
-                <img
-                  class="element__like-btn"
-                  src="./images/LikeLogo.svg"
-                  alt="Like Logo"
-                />
-              </button>
+              <h2 class="element__text">Vanoise National Park</h2>
+              <button
+                class="element__like-btn"
+                type="button"
+                aria-label="Like"
+              ></button>
             </div>
           </li>
           <li class="element">
@@ -138,14 +123,12 @@
               alt="Lago di Braies"
             />
             <div class="element__group">
-              <p class="element__text">Lago di Braies</p>
-              <button class="element__btn" type="button">
-                <img
-                  class="element__like-btn"
-                  src="./images/LikeLogo.svg"
-                  alt="Like Logo"
-                />
-              </button>
+              <h2 class="element__text">Lago di Braies</h2>
+              <button
+                class="element__like-btn"
+                type="button"
+                aria-label="Like"
+              ></button>
             </div>
           </li>
         </ul>
@@ -167,15 +150,15 @@
             name="name"
             placeholder="Name"
             class="popup-box__input popup-box__input_type_name"
+            required
           />
-          <div class="popup-box__line"></div>
           <input
             type="text"
             name="about"
             placeholder="About me"
             class="popup-box__input popup-box__input_type_about"
+            required
           />
-          <div class="popup-box__line"></div>
           <button type="submit" class="popup-box__save-btn">Save</button>
         </form>
       </div>

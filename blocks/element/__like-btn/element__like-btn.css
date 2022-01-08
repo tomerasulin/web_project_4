@@ -1,6 +1,12 @@
 .element__like-btn {
   width: 21px;
   height: 19px;
+  background-image: url(../../../images/LikeLogo.svg);
+  border: none;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
 }
 
 .element__like-btn:hover {
