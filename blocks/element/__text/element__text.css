@@ -5,6 +5,7 @@
   line-height: 1.2;
   color: #000000;
   margin: 0;
+  -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
