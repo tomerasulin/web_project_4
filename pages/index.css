@@ -31,3 +31,10 @@
 @import url(../blocks/popup-box/__input/_type/popup-box__input_type_name.css);
 @import url(../blocks/popup-box/__input/_type/popup-box__input_type_about.css);
 @import url(../blocks/popup-box/__save-btn/popup-box__save-btn.css);
+@import url(../blocks/element/__like-btn/_active/element__like-btn_active.css);
+@import url(../blocks/element/__delete-btn/element__delete-btn.css);
+@import url(../blocks/popup-box/__image/popup-box__image.css);
+@import url(../blocks/popup-box/__text/popup-box__text.css);
+@import url(../blocks/popup-box/_type/popup-box_type_open.css);
+@import url(../blocks/popup-box/__close-btn/_enlarge/popup-box__close-btn_enlarge.css);
+@import url(../blocks/popup-box/__container/_enlarge/popup-box__container_enlarge.css);

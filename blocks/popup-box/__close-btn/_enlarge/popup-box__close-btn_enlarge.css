@@ -1,0 +1,28 @@
+.popup-box__close-btn_enlarge {
+  align-self: flex-start;
+  margin: 20px 0 0 0;
+}
+
+@media screen and (max-width: 375px) {
+  .popup-box__close-btn_enlarge {
+    margin-top: 120px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .popup-box__close-btn_enlarge {
+    margin-top: 100px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .popup-box__close-btn_enlarge {
+    margin-top: 80px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .popup-box__close-btn_enlarge {
+    margin-top: 20px;
+  }
+}

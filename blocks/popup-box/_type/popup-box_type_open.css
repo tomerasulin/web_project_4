@@ -1,0 +1,4 @@
+.popup-box_type_open {
+  display: flex;
+  flex-direction: row;
+}
