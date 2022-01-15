@@ -1,8 +1,4 @@
 .popup-box_opened {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  flex-direction: column;
   opacity: 1;
   visibility: visible;
   transition: visibility 0s, opacity 0.8s;

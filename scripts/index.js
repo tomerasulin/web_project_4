@@ -33,7 +33,7 @@ const addPopup = document.querySelector(".popup-box_type_add");
 const enlargePopup = document.querySelector(".popup-box_type_open");
 const openEditPopup = document.querySelector(".profile__edit-btn");
 const openAddPopup = document.querySelector(".profile__add-btn");
-const closeBtn = document.querySelectorAll(".popup-box__close-btn");
+const closeBtns = document.querySelectorAll(".popup-box__close-btn");
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__role");
 const userInputName = document.querySelector(".popup-box__input_type_name");
@@ -44,95 +44,123 @@ const userInputImageLink = document.querySelector(
 );
 const editForm = document.querySelector(".popup-box__form_edit");
 const addForm = document.querySelector(".popup-box__form_add");
-const elementsTemplate = document.querySelector("#element-template").content;
+const elementTemplate = document.querySelector("#element-template").content;
+const elementsList = document.querySelector(".elements__list");
 
-// function that handle the popup window
-function togglePopup(popup) {
-  popup.classList.toggle("popup-box_opened");
-}
+/**
+ * function that receives a popup box and make it visible to the user
+ * @param {*} popup
+ */
+const openPopup = (popup) => {
+  popup.classList.add("popup-box_opened");
+};
 
-// function that handle the edit button
+/**
+ * function that recevies a popup box and make it invisible to the user
+ * @param {*} popup
+ */
+const closePopup = (popup) => {
+  popup.classList.remove("popup-box_opened");
+};
+
+/**
+ * function that handle the edit button once it pressed
+ */
 function handleEditButton() {
   userInputName.value = profileName.textContent;
   userInputAbout.value = profileAbout.textContent;
-  togglePopup(editPopup);
+  openPopup(editPopup);
 }
 
-//function that handle the add button
+/**
+ * function that handle the add button once it pressed
+ */
 function handleAddButton() {
-  userInputTitle.value = "";
-  userInputImageLink.value = "";
-  togglePopup(addPopup);
+  addForm.reset();
+  openPopup(addPopup);
 }
 
-//fucntion that handle all popups to be closed
-function closePopup() {
-  popupBox.forEach((popup) => {
-    if (popup.classList.contains("popup-box_opened")) {
-      togglePopup(popup);
-    }
-  });
-}
-
-// this function handle the save buttom while the user enter input
+/**
+ * this function handle the form of edit profile
+ * @param {*} evt
+ */
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = userInputName.value;
   profileAbout.textContent = userInputAbout.value;
-  togglePopup(editPopup);
+  closePopup(editPopup);
 }
 
-//function that handle the form submission of adding a new card
+/**
+ * function that handle the form of adding a new card to the card list
+ * @param {*} evt
+ */
 function handleAddingCardFormSubmit(evt) {
   evt.preventDefault();
-  const card = createElement(userInputTitle.value, userInputImageLink.value);
-  document.querySelector(".elements__list").prepend(card);
-  togglePopup(addPopup);
+  const cardToAdd = {name: userInputTitle.value, link: userInputImageLink.value}
+  const card = createElement(cardToAdd);
+  elementsList.prepend(card);
+  closePopup(addPopup);
 }
 
-//function that handle the like button once it clicked
+/**
+ * function that handle the like button once it pressed
+ * @param {*} evt
+ */
 function handleLikeButton(evt) {
   evt.target.classList.toggle("element__like-btn_active");
 }
 
-//function that handle the delete button once it clicked
+/**
+ * function that handle the delete button once it pressed
+ * @param {*} evt
+ */
 const handleDeleteButton = (evt) => {
   evt.target.closest(".element").remove();
 };
 
 //function that create an element
-const createElement = (name, link) => {
-  const element = elementsTemplate.cloneNode(true);
-  const test = element.querySelector(".element__image");
+/**
+ * function that receives a name and a link of a new card and create it
+ * @param {name, link} card
+ * @returns a new card
+ */
+const createElement = (card) => {
+  const element = elementTemplate.cloneNode(true);
+  const image = element.querySelector(".element__image");
   const likeBtn = element.querySelector(".element__like-btn");
   const deleteBtn = element.querySelector(".element__delete-btn");
-  test.src = link;
-  test.alt = name;
-  test.onclick = handleOpenImage;
-  element.querySelector(".element__text").textContent = name;
+  image.src = card.link;
+  image.alt = card.name;
+  // image.onclick = handleOpenImage;
+  image.addEventListener("click", handleOpenImage);
+  element.querySelector(".element__text").textContent = card.name;
   likeBtn.addEventListener("click", handleLikeButton);
   deleteBtn.addEventListener("click", handleDeleteButton);
+
   return element;
 };
 
-//function that handle the click on image event
+/**
+ * function that handle the click on image
+ * @param {*} evt
+ */
 const handleOpenImage = (evt) => {
-  enlargePopup.querySelector(".popup-box__image").src = evt.srcElement.src;
-  enlargePopup.querySelector(".popup-box__image").alt = evt.srcElement.alt;
-  enlargePopup.querySelector(".popup-box__text").textContent =
-    evt.srcElement.alt;
-  togglePopup(enlargePopup);
+  const image = enlargePopup.querySelector(".popup-box__image");
+  const text = enlargePopup.querySelector(".popup-box__text");
+  image.src = evt.srcElement.src;
+  image.alt = evt.srcElement.alt;
+  text.textContent = evt.currentTarget.alt;
+  openPopup(enlargePopup);
 };
 
-//function that create a six initial cards when the page is loaded
+/**
+ * function that create a six initial cards once the page is loading
+ */
 const createInitialCards = () => {
-  const elementsList = document.querySelector(".elements__list");
-  initialCards.forEach((elem) => {
-    elementsList.append(createElement(elem.name, elem.link));
-  });
+  initialCards.forEach(elem => elementsList.append(createElement(elem)));
 };
 
-//call the function once the page is loading
 createInitialCards();
 
 // event listeners
@@ -142,6 +170,14 @@ editForm.addEventListener("submit", handleProfileFormSubmit);
 addForm.addEventListener("submit", handleAddingCardFormSubmit);
 
 // handling the close buttons
-closeBtn.forEach((btn) => {
-  btn.addEventListener("click", closePopup);
+// closeBtns.forEach((btn) => {
+//   btn.addEventListener("click", closePopup);
+// });
+
+popupBox.forEach(popup => {
+  popup.addEventListener('click', evt => {
+    if(evt.target.classList.contains('popup-box__close-btn')){
+      closePopup(popup);
+    }
+  });
 });
