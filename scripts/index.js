@@ -1,3 +1,5 @@
+import { settings, reset } from "./validate.js";
+
 //six initial cards
 const initialCards = [
   {
@@ -53,6 +55,7 @@ const elementsList = document.querySelector(".elements__list");
  */
 const openPopup = (popup) => {
   popup.classList.add("popup-box_opened");
+  document.addEventListener("keydown", keyHandler);
 };
 
 /**
@@ -61,6 +64,8 @@ const openPopup = (popup) => {
  */
 const closePopup = (popup) => {
   popup.classList.remove("popup-box_opened");
+  document.removeEventListener("keydown", keyHandler);
+  reset(settings);
 };
 
 /**
@@ -97,7 +102,10 @@ function handleProfileFormSubmit(evt) {
  */
 function handleAddingCardFormSubmit(evt) {
   evt.preventDefault();
-  const cardToAdd = {name: userInputTitle.value, link: userInputImageLink.value}
+  const cardToAdd = {
+    name: userInputTitle.value,
+    link: userInputImageLink.value,
+  };
   const card = createElement(cardToAdd);
   elementsList.prepend(card);
   closePopup(addPopup);
@@ -132,7 +140,6 @@ const createElement = (card) => {
   const deleteBtn = element.querySelector(".element__delete-btn");
   image.src = card.link;
   image.alt = card.name;
-  // image.onclick = handleOpenImage;
   image.addEventListener("click", handleOpenImage);
   element.querySelector(".element__text").textContent = card.name;
   likeBtn.addEventListener("click", handleLikeButton);
@@ -158,7 +165,7 @@ const handleOpenImage = (evt) => {
  * function that create a six initial cards once the page is loading
  */
 const createInitialCards = () => {
-  initialCards.forEach(elem => elementsList.append(createElement(elem)));
+  initialCards.forEach((elem) => elementsList.append(createElement(elem)));
 };
 
 createInitialCards();
@@ -169,15 +176,25 @@ openAddPopup.addEventListener("click", handleAddButton);
 editForm.addEventListener("submit", handleProfileFormSubmit);
 addForm.addEventListener("submit", handleAddingCardFormSubmit);
 
-// handling the close buttons
-// closeBtns.forEach((btn) => {
-//   btn.addEventListener("click", closePopup);
-// });
-
-popupBox.forEach(popup => {
-  popup.addEventListener('click', evt => {
-    if(evt.target.classList.contains('popup-box__close-btn')){
+popupBox.forEach((popup) => {
+  popup.addEventListener("click", (evt) => {
+    if (evt.target.classList.contains("popup-box__close-btn")) {
+      closePopup(popup);
+    }
+    if (evt.target.classList.contains("popup-box_opened")) {
       closePopup(popup);
     }
   });
 });
+
+/**
+ * this function gets the event object and once there is a keydown event it checks
+ * whether the key is an escape key, in case it is the popup window will be close
+ * @param {} evt
+ */
+const keyHandler = (evt) => {
+  if (evt.key === "Escape") {
+    const popup = document.querySelector(".popup-box_opened");
+    closePopup(popup);
+  }
+};

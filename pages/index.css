@@ -38,3 +38,7 @@
 @import url(../blocks/popup-box/_type/popup-box_type_open.css);
 @import url(../blocks/popup-box/__close-btn/_enlarge/popup-box__close-btn_enlarge.css);
 @import url(../blocks/popup-box/__container/_enlarge/popup-box__container_enlarge.css);
+@import url(../blocks/popup-box/__save-btn/_disabled/popup-box__save-btn_disabled.css);
+@import url(../blocks/popup-box/__input/_type/popup-box__input_type_error.css);
+@import url(../blocks/popup-box/__error/popup-box__error.css);
+@import url(../blocks/popup-box/__error/_visible/popup-box__error_visible.css);

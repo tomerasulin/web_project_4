@@ -19,6 +19,7 @@ This project represent an interactive web page where users can add, remove, or l
 - HTML5, CSS3, Grid and Flexbox layouts, media queries
 - JavaScript - functions, handling events, interactive buttons
 - Adding interactivity to buttons and images - adding new images, deleting images, active like button, enlarge images when click on them
+- Form Validation
 
 **Link to the project on GitHub pages**
 
