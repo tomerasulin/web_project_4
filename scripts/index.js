@@ -1,32 +1,5 @@
-import { settings, reset } from "./validate.js";
-
-//six initial cards
-const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://code.s3.yandex.net/web-code/yosemite.jpg",
-  },
-  {
-    name: "Lake Louise",
-    link: "https://code.s3.yandex.net/web-code/lake-louise.jpg",
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://code.s3.yandex.net/web-code/latemar.jpg",
-  },
-  {
-    name: "Vanoise National Park",
-    link: "https://code.s3.yandex.net/web-code/vanoise.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://code.s3.yandex.net/web-code/lago.jpg",
-  },
-];
+import { reset, settings } from "./validate.js";
+import { initialCards } from "./cards.js";
 
 // declaring variables
 const popupBox = document.querySelectorAll(".popup-box");
@@ -35,7 +8,6 @@ const addPopup = document.querySelector(".popup-box_type_add");
 const enlargePopup = document.querySelector(".popup-box_type_open");
 const openEditPopup = document.querySelector(".profile__edit-btn");
 const openAddPopup = document.querySelector(".profile__add-btn");
-const closeBtns = document.querySelectorAll(".popup-box__close-btn");
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__role");
 const userInputName = document.querySelector(".popup-box__input_type_name");
@@ -48,6 +20,8 @@ const editForm = document.querySelector(".popup-box__form_edit");
 const addForm = document.querySelector(".popup-box__form_add");
 const elementTemplate = document.querySelector("#element-template").content;
 const elementsList = document.querySelector(".elements__list");
+const imageAddForm = enlargePopup.querySelector(".popup-box__image");
+const textAddForm = enlargePopup.querySelector(".popup-box__text");
 
 /**
  * function that receives a popup box and make it visible to the user
@@ -56,6 +30,7 @@ const elementsList = document.querySelector(".elements__list");
 const openPopup = (popup) => {
   popup.classList.add("popup-box_opened");
   document.addEventListener("keydown", keyHandler);
+  reset(settings);
 };
 
 /**
@@ -65,7 +40,6 @@ const openPopup = (popup) => {
 const closePopup = (popup) => {
   popup.classList.remove("popup-box_opened");
   document.removeEventListener("keydown", keyHandler);
-  reset(settings);
 };
 
 /**
@@ -81,7 +55,6 @@ function handleEditButton() {
  * function that handle the add button once it pressed
  */
 function handleAddButton() {
-  addForm.reset();
   openPopup(addPopup);
 }
 
@@ -138,10 +111,11 @@ const createElement = (card) => {
   const image = element.querySelector(".element__image");
   const likeBtn = element.querySelector(".element__like-btn");
   const deleteBtn = element.querySelector(".element__delete-btn");
+  const text = element.querySelector(".element__text");
   image.src = card.link;
   image.alt = card.name;
   image.addEventListener("click", handleOpenImage);
-  element.querySelector(".element__text").textContent = card.name;
+  text.textContent = card.name;
   likeBtn.addEventListener("click", handleLikeButton);
   deleteBtn.addEventListener("click", handleDeleteButton);
 
@@ -153,11 +127,9 @@ const createElement = (card) => {
  * @param {*} evt
  */
 const handleOpenImage = (evt) => {
-  const image = enlargePopup.querySelector(".popup-box__image");
-  const text = enlargePopup.querySelector(".popup-box__text");
-  image.src = evt.srcElement.src;
-  image.alt = evt.srcElement.alt;
-  text.textContent = evt.currentTarget.alt;
+  imageAddForm.src = evt.target.src;
+  imageAddForm.alt = evt.target.alt;
+  textAddForm.textContent = evt.currentTarget.alt;
   openPopup(enlargePopup);
 };
 
@@ -181,6 +153,8 @@ popupBox.forEach((popup) => {
     if (evt.target.classList.contains("popup-box__close-btn")) {
       closePopup(popup);
     }
+  });
+  popup.addEventListener("mousedown", (evt) => {
     if (evt.target.classList.contains("popup-box_opened")) {
       closePopup(popup);
     }

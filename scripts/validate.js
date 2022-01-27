@@ -7,49 +7,57 @@ export const settings = {
   errorClass: "popup-box__error_visible",
 };
 
+const {
+  formSelector,
+  inputSelector,
+  submitButtonSelector,
+  inactiveButtonClass,
+  inputErrorClass,
+  errorClass,
+} = settings;
+
+const formList = Array.from(document.querySelectorAll(".popup-box__form"));
+
+
 /**
  * this function show the error message
- * @param {*} settings
  * @param {*} formElement
  * @param {*} inputElement
  * @param {*} errorMessage
  */
-const showInputError = (settings, formElement, inputElement, errorMessage) => {
+const showInputError = (formElement, inputElement, errorMessage) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add(settings.inputErrorClass);
+  inputElement.classList.add(inputErrorClass);
   errorElement.textContent = errorMessage;
-  errorElement.classList.add(settings.errorClass);
+  errorElement.classList.add(errorClass);
 };
 
 /**
  * this function hide the error message
- * @param {*} settings
  * @param {*} formElement
  * @param {*} inputElement
  */
-const hideInputError = (settings, formElement, inputElement) => {
+const hideInputError = (formElement, inputElement) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove(settings.inputErrorClass);
-  errorElement.classList.remove(settings.errorClass);
+  inputElement.classList.remove(inputErrorClass);
+  errorElement.classList.remove(errorClass);
   errorElement.textContent = "";
 };
 
 /**
  * this function check the validation of an input field and show/hide the error message
- * @param {*} settings
  * @param {*} formElement
  * @param {*} inputElement
  */
-const checkInputValidity = (settings, formElement, inputElement) => {
+const checkInputValidity = (formElement, inputElement) => {
   if (!inputElement.validity.valid) {
     showInputError(
-      settings,
       formElement,
       inputElement,
       inputElement.validationMessage
     );
   } else {
-    hideInputError(settings, formElement, inputElement);
+    hideInputError(formElement, inputElement);
   }
 };
 
@@ -67,15 +75,16 @@ const hasInvalidInput = (inputList) => {
 /**
  * this function checks if an input field is valid
  * in case of true the button turn to be inactive otherwise it turns to be active
- * @param {*} settings
  * @param {*} inputList
  * @param {*} buttonElement
  */
-const toggleButtonState = (settings, inputList, buttonElement) => {
+const toggleButtonState = (inputList, buttonElement) => {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(settings.inactiveButtonClass);
+    buttonElement.classList.add(inactiveButtonClass);
+    buttonElement.disabled = true;
   } else {
-    buttonElement.classList.remove(settings.inactiveButtonClass);
+    buttonElement.classList.remove(inactiveButtonClass);
+    buttonElement.disabled = false;
   }
 };
 
@@ -83,35 +92,33 @@ const toggleButtonState = (settings, inputList, buttonElement) => {
  * this function gets the settings object and a form
  * and set an event listeners to all inputs inside the form
  * toggling the button(active and inactive) and check validation
- * @param {*} settings
  * @param {*} formElement
  */
-const setEventListeners = (settings, formElement) => {
+const setEventListeners = (formElement) => {
   const inputList = Array.from(
-    formElement.querySelectorAll(settings.inputSelector)
+    formElement.querySelectorAll(inputSelector)
   );
   const buttonElement = formElement.querySelector(
-    settings.submitButtonSelector
+    submitButtonSelector
   );
-  toggleButtonState(settings, inputList, buttonElement);
+  toggleButtonState(inputList, buttonElement);
   inputList.forEach((input) => {
     input.addEventListener("input", () => {
-      toggleButtonState(settings, inputList, buttonElement);
-      checkInputValidity(settings, formElement, input);
+      toggleButtonState(inputList, buttonElement);
+      checkInputValidity(formElement, input);
     });
   });
 };
 
 /**
  * this function validate the forms in our page
- * @param {*} settings
  */
-const enableValidation = (settings) => {
+const enableValidation = () => {
   const formElement = Array.from(
-    document.querySelectorAll(settings.formSelector)
+    document.querySelectorAll(formSelector)
   );
   formElement.forEach((form) => {
-    setEventListeners(settings, form);
+    setEventListeners(form);
     form.addEventListener("submit", (evt) => {
       evt.preventDefault();
     });
@@ -125,16 +132,10 @@ enableValidation(settings);
 
 /**
  * this function will reset all validation state
- * @param {*} settings
  */
-export const reset = (settings) => {
-  const formList = Array.from(document.querySelectorAll(".popup-box__form"));
+export const reset = () => {
   formList.forEach((form) => {
-    const inputList = Array.from(form.querySelectorAll(".popup-box__input"));
-    const button = form.querySelector(".popup-box__save-btn");
-    inputList.forEach((input) => {
-      hideInputError(settings, form, input);
-      toggleButtonState(settings, inputList, button);
-    });
+    form.reset();
+    setEventListeners(form);
   });
 };
