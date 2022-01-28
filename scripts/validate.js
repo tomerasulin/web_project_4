@@ -7,8 +7,6 @@ export const settings = {
   errorClass: "popup-box__error_visible",
 };
 
-const formList = Array.from(document.querySelectorAll(".popup-box__form"));
-
 /**
  * this function show the error message
  * @param {*} formElement
@@ -117,12 +115,13 @@ const setEventListeners = (
  * this function will reset all validation state
  */
 export const reset = (settings) => {
+  const formList = Array.from(document.querySelectorAll(settings.formSelector));
   formList.forEach((form) => {
-    const inputList = Array.from(form.querySelectorAll(".popup-box__input"));
-    const button = form.querySelector(".popup-box__save-btn");
+    const inputList = Array.from(form.querySelectorAll(settings.inputSelector));
+    const button = form.querySelector(settings.submitButtonSelector);
+    toggleButtonState(settings, inputList, button);
     inputList.forEach((input) => {
-      toggleButtonState(settings, inputList, button);
-      checkInputValidity(settings, form, input);
+      hideInputError(settings, form, input);
     });
   });
 };
@@ -131,6 +130,7 @@ export const reset = (settings) => {
  * this function validate the forms in our page
  */
 const enableValidation = (settings) => {
+  const formList = Array.from(document.querySelectorAll(".popup-box__form"));
   formList.forEach((form) => {
     setEventListeners(settings, form);
     form.addEventListener("submit", (evt) => {

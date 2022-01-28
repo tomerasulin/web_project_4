@@ -56,6 +56,7 @@ function handleEditButton() {
  */
 function handleAddButton() {
   openPopup(addPopup);
+  addForm.reset();
   reset(settings);
 }
 
@@ -83,8 +84,6 @@ function handleAddingCardFormSubmit(evt) {
   const card = createElement(cardToAdd);
   elementsList.prepend(card);
   closePopup(addPopup);
-  addForm.reset();
-
 }
 
 /**
