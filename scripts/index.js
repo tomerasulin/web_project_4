@@ -30,7 +30,6 @@ const textAddForm = enlargePopup.querySelector(".popup-box__text");
 const openPopup = (popup) => {
   popup.classList.add("popup-box_opened");
   document.addEventListener("keydown", keyHandler);
-  reset(settings);
 };
 
 /**
@@ -49,6 +48,7 @@ function handleEditButton() {
   userInputName.value = profileName.textContent;
   userInputAbout.value = profileAbout.textContent;
   openPopup(editPopup);
+  reset(settings);
 }
 
 /**
@@ -56,6 +56,7 @@ function handleEditButton() {
  */
 function handleAddButton() {
   openPopup(addPopup);
+  reset(settings);
 }
 
 /**
@@ -82,6 +83,8 @@ function handleAddingCardFormSubmit(evt) {
   const card = createElement(cardToAdd);
   elementsList.prepend(card);
   closePopup(addPopup);
+  addForm.reset();
+
 }
 
 /**
