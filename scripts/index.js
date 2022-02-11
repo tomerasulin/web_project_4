@@ -1,148 +1,76 @@
-import { reset, settings } from "./validate.js";
-import { initialCards } from "./cards.js";
+// imports
+import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
+import {
+  handleEditButton,
+  handleAddButton,
+  handleProfileFormSubmit,
+  handleAddingCardFormSubmit,
+  closePopup,
+} from "./utils.js";
 
 // declaring variables
 const popupBox = document.querySelectorAll(".popup-box");
-const editPopup = document.querySelector(".popup-box_type_edit");
-const addPopup = document.querySelector(".popup-box_type_add");
-const enlargePopup = document.querySelector(".popup-box_type_open");
 const openEditPopup = document.querySelector(".profile__edit-btn");
 const openAddPopup = document.querySelector(".profile__add-btn");
-const profileName = document.querySelector(".profile__name");
-const profileAbout = document.querySelector(".profile__role");
-const userInputName = document.querySelector(".popup-box__input_type_name");
-const userInputAbout = document.querySelector(".popup-box__input_type_about");
-const userInputTitle = document.querySelector(".popup-box__input_type_title");
-const userInputImageLink = document.querySelector(
-  ".popup-box__input_type_image-link"
-);
 const editForm = document.querySelector(".popup-box__form_edit");
-const addForm = document.querySelector(".popup-box__form_add");
-const elementTemplate = document.querySelector("#element-template").content;
-const elementsList = document.querySelector(".elements__list");
-const imageAddForm = enlargePopup.querySelector(".popup-box__image");
-const textAddForm = enlargePopup.querySelector(".popup-box__text");
+export const addForm = document.querySelector(".popup-box__form_add");
+export const elementsList = document.querySelector(".elements__list");
 
-/**
- * function that receives a popup box and make it visible to the user
- * @param {*} popup
- */
-const openPopup = (popup) => {
-  popup.classList.add("popup-box_opened");
-  document.addEventListener("keydown", keyHandler);
-};
+//six initial cards
+const initialCards = [
+  {
+    name: "Yosemite Valley",
+    link: "https://code.s3.yandex.net/web-code/yosemite.jpg",
+  },
+  {
+    name: "Lake Louise",
+    link: "https://code.s3.yandex.net/web-code/lake-louise.jpg",
+  },
+  {
+    name: "Bald Mountains",
+    link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg",
+  },
+  {
+    name: "Latemar",
+    link: "https://code.s3.yandex.net/web-code/latemar.jpg",
+  },
+  {
+    name: "Vanoise National Park",
+    link: "https://code.s3.yandex.net/web-code/vanoise.jpg",
+  },
+  {
+    name: "Lago di Braies",
+    link: "https://code.s3.yandex.net/web-code/lago.jpg",
+  },
+];
 
-/**
- * function that recevies a popup box and make it invisible to the user
- * @param {*} popup
- */
-const closePopup = (popup) => {
-  popup.classList.remove("popup-box_opened");
-  document.removeEventListener("keydown", keyHandler);
-};
-
-/**
- * function that handle the edit button once it pressed
- */
-function handleEditButton() {
-  userInputName.value = profileName.textContent;
-  userInputAbout.value = profileAbout.textContent;
-  openPopup(editPopup);
-  reset(settings);
-}
-
-/**
- * function that handle the add button once it pressed
- */
-function handleAddButton() {
-  openPopup(addPopup);
-  addForm.reset();
-  reset(settings);
-}
-
-/**
- * this function handle the form of edit profile
- * @param {*} evt
- */
-function handleProfileFormSubmit(evt) {
-  evt.preventDefault();
-  profileName.textContent = userInputName.value;
-  profileAbout.textContent = userInputAbout.value;
-  closePopup(editPopup);
-}
-
-/**
- * function that handle the form of adding a new card to the card list
- * @param {*} evt
- */
-function handleAddingCardFormSubmit(evt) {
-  evt.preventDefault();
-  const cardToAdd = {
-    name: userInputTitle.value,
-    link: userInputImageLink.value,
-  };
-  const card = createElement(cardToAdd);
-  elementsList.prepend(card);
-  closePopup(addPopup);
-}
-
-/**
- * function that handle the like button once it pressed
- * @param {*} evt
- */
-function handleLikeButton(evt) {
-  evt.target.classList.toggle("element__like-btn_active");
-}
-
-/**
- * function that handle the delete button once it pressed
- * @param {*} evt
- */
-const handleDeleteButton = (evt) => {
-  evt.target.closest(".element").remove();
-};
-
-//function that create an element
-/**
- * function that receives a name and a link of a new card and create it
- * @param {name, link} card
- * @returns a new card
- */
-const createElement = (card) => {
-  const element = elementTemplate.cloneNode(true);
-  const image = element.querySelector(".element__image");
-  const likeBtn = element.querySelector(".element__like-btn");
-  const deleteBtn = element.querySelector(".element__delete-btn");
-  const text = element.querySelector(".element__text");
-  image.src = card.link;
-  image.alt = card.name;
-  image.addEventListener("click", handleOpenImage);
-  text.textContent = card.name;
-  likeBtn.addEventListener("click", handleLikeButton);
-  deleteBtn.addEventListener("click", handleDeleteButton);
-
-  return element;
-};
-
-/**
- * function that handle the click on image
- * @param {*} evt
- */
-const handleOpenImage = (evt) => {
-  imageAddForm.src = evt.target.src;
-  imageAddForm.alt = evt.target.alt;
-  textAddForm.textContent = evt.currentTarget.alt;
-  openPopup(enlargePopup);
+// settings for validation
+const settings = {
+  inputSelector: ".popup-box__input",
+  submitButtonSelector: ".popup-box__save-btn",
+  inactiveButtonClass: "popup-box__save-btn_disabled",
+  inputErrorClass: "popup-box__input_type_error",
+  errorClass: "popup-box__error_visible",
 };
 
 /**
  * function that create a six initial cards once the page is loading
  */
 const createInitialCards = () => {
-  initialCards.forEach((elem) => elementsList.append(createElement(elem)));
+  initialCards.forEach((elem) =>
+    elementsList.append(new Card(elem, "#element-template").generateCard())
+  );
 };
 
 createInitialCards();
+
+// validations 
+export const editFormValidator = new FormValidator(settings, editForm);
+export const addFormValidator = new FormValidator(settings, addForm);
+
+editFormValidator.enableValidation();
+addFormValidator.enableValidation();
 
 // event listeners
 openEditPopup.addEventListener("click", handleEditButton);
@@ -163,14 +91,3 @@ popupBox.forEach((popup) => {
   });
 });
 
-/**
- * this function gets the event object and once there is a keydown event it checks
- * whether the key is an escape key, in case it is the popup window will be close
- * @param {} evt
- */
-const keyHandler = (evt) => {
-  if (evt.key === "Escape") {
-    const popup = document.querySelector(".popup-box_opened");
-    closePopup(popup);
-  }
-};
