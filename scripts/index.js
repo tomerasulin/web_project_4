@@ -1,13 +1,8 @@
 // imports
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
-import {
-  handleEditButton,
-  handleAddButton,
-  handleProfileFormSubmit,
-  handleAddingCardFormSubmit,
-  closePopup,
-} from "./utils.js";
+import { closePopup, openPopup } from "./utils.js";
+import { initialCards } from "./cards.js";
 
 // declaring variables
 const popupBox = document.querySelectorAll(".popup-box");
@@ -16,34 +11,16 @@ const openAddPopup = document.querySelector(".profile__add-btn");
 const editForm = document.querySelector(".popup-box__form_edit");
 export const addForm = document.querySelector(".popup-box__form_add");
 export const elementsList = document.querySelector(".elements__list");
-
-//six initial cards
-const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://code.s3.yandex.net/web-code/yosemite.jpg",
-  },
-  {
-    name: "Lake Louise",
-    link: "https://code.s3.yandex.net/web-code/lake-louise.jpg",
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://code.s3.yandex.net/web-code/latemar.jpg",
-  },
-  {
-    name: "Vanoise National Park",
-    link: "https://code.s3.yandex.net/web-code/vanoise.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://code.s3.yandex.net/web-code/lago.jpg",
-  },
-];
+const userInputName = document.querySelector(".popup-box__input_type_name");
+const userInputAbout = document.querySelector(".popup-box__input_type_about");
+const profileName = document.querySelector(".profile__name");
+const profileAbout = document.querySelector(".profile__role");
+const editPopup = document.querySelector(".popup-box_type_edit");
+const addPopup = document.querySelector(".popup-box_type_add");
+const userInputTitle = document.querySelector(".popup-box__input_type_title");
+const userInputImageLink = document.querySelector(
+  ".popup-box__input_type_image-link"
+);
 
 // settings for validation
 const settings = {
@@ -65,7 +42,7 @@ const createInitialCards = () => {
 
 createInitialCards();
 
-// validations 
+// validations
 export const editFormValidator = new FormValidator(settings, editForm);
 export const addFormValidator = new FormValidator(settings, addForm);
 
@@ -83,11 +60,53 @@ popupBox.forEach((popup) => {
     if (evt.target.classList.contains("popup-box__close-btn")) {
       closePopup(popup);
     }
-  });
-  popup.addEventListener("mousedown", (evt) => {
     if (evt.target.classList.contains("popup-box_opened")) {
       closePopup(popup);
     }
   });
 });
 
+/**
+ * function that handle the edit button once it pressed
+ */
+function handleEditButton() {
+  userInputName.value = profileName.textContent;
+  userInputAbout.value = profileAbout.textContent;
+  openPopup(editPopup);
+  editFormValidator.reset();
+}
+
+/**
+ * function that handle the add button once it pressed
+ */
+function handleAddButton() {
+  openPopup(addPopup);
+  addForm.reset();
+  addFormValidator.reset();
+}
+
+/**
+ * this function handle the form of edit profile
+ * @param {*} evt
+ */
+function handleProfileFormSubmit(evt) {
+  evt.preventDefault();
+  profileName.textContent = userInputName.value;
+  profileAbout.textContent = userInputAbout.value;
+  closePopup(editPopup);
+}
+
+/**
+ * function that handle the form of adding a new card to the card list
+ * @param {*} evt
+ */
+function handleAddingCardFormSubmit(evt) {
+  evt.preventDefault();
+  const cardToAdd = {
+    name: userInputTitle.value,
+    link: userInputImageLink.value,
+  };
+  const card = new Card(cardToAdd, "#element-template").generateCard();
+  elementsList.prepend(card);
+  closePopup(addPopup);
+}
