@@ -57,10 +57,10 @@ addForm.addEventListener("submit", handleAddingCardFormSubmit);
 
 popupBox.forEach((popup) => {
   popup.addEventListener("click", (evt) => {
-    if (evt.target.classList.contains("popup-box__close-btn")) {
-      closePopup(popup);
-    }
-    if (evt.target.classList.contains("popup-box_opened")) {
+    if (
+      evt.target.classList.contains("popup-box__close-btn") ||
+      evt.target.classList.contains("popup-box_opened")
+    ) {
       closePopup(popup);
     }
   });

@@ -48,18 +48,18 @@ class Card {
   /**
    * function that handle the click on image
    */
-  _handleOpenImage() {
-    image.src = this.src;
-    image.alt = this.alt;
-    text.textContent = this.alt;
+  _handleOpenImage = () => {
+    image.src = this._image;
+    image.alt = this._text;
+    text.textContent = this._text;
     openPopup(enlargePopup);
   }
 
   /**
    * function that handle the like button once it pressed
    */
-  _handleLikeButton() {
-    this.classList.toggle("element__like-btn_active");
+  _handleLikeButton = () => {
+    this._element.querySelector(".element__like-btn").classList.toggle("element__like-btn_active");
   }
 
   /**
@@ -67,6 +67,7 @@ class Card {
    */
   _handleDeleteButton = () => {
     this._element.remove();
+    this._element = null;
   };
 
   /**
