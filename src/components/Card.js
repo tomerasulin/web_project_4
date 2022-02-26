@@ -6,8 +6,12 @@ class Card {
     this._name = data.name;
     this._link = data.link;
     this._handleCardClick = handleCardClick;
-
     this._cardSelector = cardSelector;
+    this._element = this._getTemplate();
+    this._likeBtn = this._element.querySelector(".element__like-btn");
+    this._cardImage = this._element.querySelector(".element__image");
+    this._deleteBtn = this._element.querySelector(".element__delete-btn");
+    this._text = this._element.querySelector(".element__text");
   }
 
   /**
@@ -27,24 +31,16 @@ class Card {
    * method that set event listeners for each handler
    */
   _setEventListeners() {
-    this._element
-      .querySelector(".element__image")
-      .addEventListener("click", this._handleCardClick);
-    this._element
-      .querySelector(".element__like-btn")
-      .addEventListener("click", this._handleLikeButton);
-    this._element
-      .querySelector(".element__delete-btn")
-      .addEventListener("click", this._handleDeleteButton);
+    this._cardImage.addEventListener("click", this._handleCardClick);
+    this._likeBtn.addEventListener("click", this._handleLikeButton);
+    this._deleteBtn.addEventListener("click", this._handleDeleteButton);
   }
 
   /**
    * function that handle the like button once it pressed
    */
   _handleLikeButton = () => {
-    this._element
-      .querySelector(".element__like-btn")
-      .classList.toggle("element__like-btn_active");
+    this._likeBtn.classList.toggle("element__like-btn_active");
   };
 
   /**
@@ -60,10 +56,9 @@ class Card {
    * @returns a new card
    */
   generateCard() {
-    this._element = this._getTemplate();
-    this._element.querySelector(".element__image").src = this._link;
-    this._element.querySelector(".element__image").alt = this._name;
-    this._element.querySelector(".element__text").textContent = this._name;
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
+    this._text.textContent = this._name;
     this._setEventListeners();
 
     return this._element;

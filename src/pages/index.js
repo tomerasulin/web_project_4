@@ -6,7 +6,8 @@ import PopupWithImage from "../components/PopupWithImage";
 import UserInfo from "../components/UserInfo";
 import PopupWithForm from "../components/PopupWithForm";
 import FormValidator from "../components/FormValidator.js";
-import { initialCards } from "../scripts/cards.js";
+import { settings, initialCards } from "../utils/constants.js";
+
 //logos and pics imports
 import logoSrc from "../images/HeaderLogo.svg";
 import avatarSrc from "../images/Avatar.jpg";
@@ -25,40 +26,23 @@ const userInputAbout = document.querySelector(".popup-box__input_type_about");
 const openEditPopup = document.querySelector(".profile__edit-btn");
 const openAddPopup = document.querySelector(".profile__add-btn");
 
-// get the DOM elements of the logo and avatar 
+// get the DOM elements of the logo and avatar
 const logo = document.querySelector(".header__image");
 const avatar = document.querySelector(".profile__avatar");
-
-// settings for validation
-const settings = {
-  inputSelector: ".popup-box__input",
-  submitButtonSelector: ".popup-box__save-btn",
-  inactiveButtonClass: "popup-box__save-btn_disabled",
-  inputErrorClass: "popup-box__input_type_error",
-  errorClass: "popup-box__error_visible",
-};
 
 // set the logo and image of the page
 logo.src = logoSrc;
 avatar.src = avatarSrc;
 
-
+// array of form validators
+const formValidators = {};
 
 //creating all the cards into the page
 const cardList = new Section(
   {
     items: initialCards,
     renderer: (data) => {
-      const card = new Card(
-        data,
-        () => {
-          imagePopup.open(data);
-        },
-        "#element-template"
-      );
-
-      const cardElement = card.generateCard();
-
+      const cardElement = createCard(data);
       cardList.addItem(cardElement);
     },
   },
@@ -74,7 +58,6 @@ const userInfo = new UserInfo({
   userJob: profileAbout,
 });
 
-
 const imagePopup = new PopupWithImage(enlargePopup);
 
 /* ----------handling the forms for editing the profile box and and adding a new card */
@@ -84,16 +67,10 @@ const userInfoPopup = new PopupWithForm(editPopup, (data) => {
 });
 
 const newCardPopup = new PopupWithForm(addPopup, (data) => {
-  const card = new Card(
-    {name: data.title, link: data['image-link']},
-    () => {
-      imagePopup.open({name: data.title, link: data['image-link']});
-    },
-    "#element-template"
-  );
-
-  const cardElement = card.generateCard();
-
+  const cardElement = createCard({
+    name: data.title,
+    link: data["image-link"],
+  });
   cardList.addItem(cardElement);
   newCardPopup.close();
 });
@@ -111,7 +88,8 @@ function handleEditButton() {
   const info = userInfo.getUserInfo();
   userInputName.value = info.userName;
   userInputAbout.value = info.userJob;
-  editFormValidator.reset();
+  // editFormValidator.resetValidation();
+  formValidators[editForm.getAttribute("name")].resetValidation();
 }
 
 /**
@@ -119,7 +97,8 @@ function handleEditButton() {
  */
 function handleAddButton() {
   newCardPopup.open();
-  addFormValidator.reset();
+  // addFormValidator.resetValidation();
+  formValidators[addForm.getAttribute("name")].resetValidation();
 }
 
 // event listeners
@@ -127,9 +106,28 @@ openEditPopup.addEventListener("click", handleEditButton);
 openAddPopup.addEventListener("click", handleAddButton);
 
 // validations
-export const editFormValidator = new FormValidator(settings, editForm);
-export const addFormValidator = new FormValidator(settings, addForm);
+const enableValidation = (settings) => {
+  const formList = Array.from(document.querySelectorAll(".popup-box__form"));
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(settings, formElement);
+    const formName = formElement.getAttribute("name");
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
 
-editFormValidator.enableValidation();
-addFormValidator.enableValidation();
+enableValidation(settings);
 
+// function that create a card
+function createCard(data) {
+  const card = new Card(
+    data,
+    () => {
+      imagePopup.open(data);
+    },
+    "#element-template"
+  );
+
+  const cardElement = card.generateCard();
+  return cardElement;
+}
