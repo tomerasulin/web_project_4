@@ -4,11 +4,11 @@
 export default class Section {
   // items serves as an array of data
   // renderer responsible for creating and rendering data on a page
-  constructor({ items, renderer }, cssSelector) {
+  constructor({ items, renderer }, container) {
     this._items = items;
     this._renderer = renderer;
 
-    this._container = cssSelector;
+    this._container = container;
   }
 
   renderer() {

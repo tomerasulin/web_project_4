@@ -5,6 +5,11 @@ import Popup from "./Popup.js";
  * this class has to change the parent open() method of the Popup class
  */
 export default class PopupWithImage extends Popup {
+  constructor(popup) {
+    super(popup);
+    this._caption = this._popup.querySelector(".popup-box__text");
+    this._img = this._popup.querySelector(".popup-box__image");
+  }
   open({ link, name }) {
     this._caption.textContent = name;
     this._img.src = link;
