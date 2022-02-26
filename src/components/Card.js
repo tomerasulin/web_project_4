@@ -1,18 +1,11 @@
-//imports
-import { openPopup } from "./utils.js";
-
-//variables
-const enlargePopup = document.querySelector(".popup-box_type_open");
-const image = enlargePopup.querySelector(".popup-box__image");
-const text = enlargePopup.querySelector(".popup-box__text");
-
 /***
  * A Card class that creates a card with text and an image link
  */
 class Card {
-  constructor(data, cardSelector) {
-    this._text = data.name;
-    this._image = data.link;
+  constructor(data, handleCardClick, cardSelector) {
+    this._name = data.name;
+    this._link = data.link;
+    this._handleCardClick = handleCardClick;
 
     this._cardSelector = cardSelector;
   }
@@ -36,7 +29,7 @@ class Card {
   _setEventListeners() {
     this._element
       .querySelector(".element__image")
-      .addEventListener("click", this._handleOpenImage);
+      .addEventListener("click", this._handleCardClick);
     this._element
       .querySelector(".element__like-btn")
       .addEventListener("click", this._handleLikeButton);
@@ -46,21 +39,13 @@ class Card {
   }
 
   /**
-   * function that handle the click on image
-   */
-  _handleOpenImage = () => {
-    image.src = this._image;
-    image.alt = this._text;
-    text.textContent = this._text;
-    openPopup(enlargePopup);
-  }
-
-  /**
    * function that handle the like button once it pressed
    */
   _handleLikeButton = () => {
-    this._element.querySelector(".element__like-btn").classList.toggle("element__like-btn_active");
-  }
+    this._element
+      .querySelector(".element__like-btn")
+      .classList.toggle("element__like-btn_active");
+  };
 
   /**
    * function that handle the delete button once it pressed
@@ -76,9 +61,9 @@ class Card {
    */
   generateCard() {
     this._element = this._getTemplate();
-    this._element.querySelector(".element__image").src = this._image;
-    this._element.querySelector(".element__image").alt = this._text;
-    this._element.querySelector(".element__text").textContent = this._text;
+    this._element.querySelector(".element__image").src = this._link;
+    this._element.querySelector(".element__image").alt = this._name;
+    this._element.querySelector(".element__text").textContent = this._name;
     this._setEventListeners();
 
     return this._element;

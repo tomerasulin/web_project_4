@@ -20,7 +20,10 @@ This project represent an interactive web page where users can add, remove, or l
 - JavaScript - functions, handling events, interactive buttons
 - Adding interactivity to buttons and images - adding new images, deleting images, active like button, enlarge images when click on them
 - Form Validation
-- Applied JS
+- Applied JS - OOP(Inheritance, Polymorphism and Encapsulation), Modular JS, Destructing
+- Webpack bundler - HTML and CSS plugins
+- NPM
+- JS Transpiler - Babel
 
 **Link to the project on GitHub pages**
 
