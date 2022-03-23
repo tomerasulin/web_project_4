@@ -24,6 +24,7 @@ This project represent an interactive web page where users can add, remove, or l
 - Webpack bundler - HTML and CSS plugins
 - NPM
 - JS Transpiler - Babel
+- API class that communicate with the server by HTTP requests(GET, POST, PUT, PATCH, DELETE)
 
 **Link to the project on GitHub pages**
 

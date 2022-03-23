@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Tomer Asulin" />
     <title>Around the U.S.</title>
   </head>
   <body class="page">
@@ -12,7 +13,14 @@
     </header>
     <main class="main">
       <section class="profile">
-        <img class="profile__avatar" alt="Avatar picture" />
+        <div class="profile__avatar-box">
+          <img class="profile__avatar" alt="Avatar picture" />
+          <button
+            class="profile__avatar-edit"
+            type="button"
+            aria-label="edit"
+          ></button>
+        </div>
         <div class="profile__info">
           <div class="profile__name-wrapper">
             <h1 class="profile__name">Jacques Cousteau</h1>
@@ -37,6 +45,42 @@
     <footer class="footer">
       <p class="footer__text">© 2021 Around The U.S.</p>
     </footer>
+    <!--
+      Form for changing avatar picture
+    -->
+    <div class="popup-box popup-box_type_change">
+      <div class="popup-box__container">
+        <button
+          type="button"
+          class="popup-box__close-btn"
+          aria-label="Close"
+        ></button>
+        <form
+          class="popup-box__form popup-box__form_change"
+          name="change-profile-pic"
+          novalidate
+        >
+          <h3 class="popup-box__title">Change profile picture</h3>
+          <input
+            id="url-input"
+            type="url"
+            name="image-link"
+            placeholder="Image link"
+            class="popup-box__input popup-box__input_type_image-link"
+            required
+          />
+          <span class="url-input-error popup-box__error"></span>
+          <button
+            type="submit"
+            class="popup-box__save-btn"
+            aria-label="Save"
+            name="save"
+          >
+            Save
+          </button>
+        </form>
+      </div>
+    </div>
     <!--
       edit profile popup box
     -->
@@ -75,7 +119,12 @@
             maxlength="200"
           />
           <span class="about-input-error popup-box__error"></span>
-          <button type="submit" class="popup-box__save-btn" aria-label="Save">
+          <button
+            type="submit"
+            class="popup-box__save-btn"
+            aria-label="Save"
+            name="save"
+          >
             Save
           </button>
         </form>
@@ -117,8 +166,35 @@
             required
           />
           <span class="url-input-error popup-box__error"></span>
-          <button type="submit" class="popup-box__save-btn" aria-label="Save">
+          <button
+            type="submit"
+            class="popup-box__save-btn"
+            aria-label="Save"
+            name="create"
+          >
             Create
+          </button>
+        </form>
+      </div>
+    </div>
+    <!--
+      Popup for deleting a card
+    -->
+    <div class="popup-box popup-box_type_delete">
+      <div class="popup-box__container">
+        <button
+          type="button"
+          class="popup-box__close-btn"
+          aria-label="Close"
+        ></button>
+        <form
+          class="popup-box__form popup-box__form_delete"
+          name="delete-card"
+          novalidate
+        >
+          <h3 class="popup-box__title">Are you sure?</h3>
+          <button type="submit" class="popup-box__save-btn" aria-label="Save">
+            Yes
           </button>
         </form>
       </div>
@@ -150,11 +226,14 @@
         <img class="element__image" src=" " alt="" onclick="" />
         <div class="element__group">
           <h2 class="element__text"></h2>
-          <button
-            class="element__like-btn"
-            type="button"
-            aria-label="Like"
-          ></button>
+          <div class="element__likes-box">
+            <button
+              class="element__like-btn"
+              type="button"
+              aria-label="Like"
+            ></button>
+            <p class="element__show-likes"></p>
+          </div>
         </div>
       </li>
     </template>

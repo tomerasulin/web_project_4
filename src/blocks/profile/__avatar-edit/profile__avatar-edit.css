@@ -1,0 +1,14 @@
+.profile__avatar-edit {
+  position: absolute;
+  visibility: hidden;
+  top: 40%;
+  left: 35%;
+  width: 26px;
+  height: 26px;
+  background-image: url(../../../images/EditPen.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
