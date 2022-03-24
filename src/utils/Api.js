@@ -1,13 +1,13 @@
 /**
  * This class responsible to communicate with the server
  */
-class Api {
+export default class Api {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
     this._headers = headers;
   }
 
-  init(){
+  init() {
     return Promise.all([this.getInitialCards(), this.getUserInfo()]);
   }
 
@@ -25,9 +25,7 @@ class Api {
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
-    })
-      .then((res) => (res.ok ? res.json() : Promise.reject(res.statusText)))
-      .catch(console.log);
+    }).then((res) => this._getResponseData(res));
   }
 
   /**
@@ -53,9 +51,7 @@ class Api {
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
-    })
-      .then((res) => (res.ok ? res.json() : Promise.reject(res.statusText)))
-      .catch(console.log);
+    }).then((res) => this._getResponseData(res));
   }
 
   /**
@@ -68,9 +64,7 @@ class Api {
       headers: this._headers,
       method: "PATCH",
       body: JSON.stringify(data),
-    })
-      .then((res) => (res.ok ? res.json() : Promise.reject(res.statusText)))
-      .catch(console.log);
+    }).then((res) => this._getResponseData(res));
   }
 
   /**
@@ -83,9 +77,7 @@ class Api {
       headers: this._headers,
       method: "POST",
       body: JSON.stringify(data),
-    })
-      .then((res) => (res.ok ? res.json() : Promise.reject(res.statusText)))
-      .catch(console.log);
+    }).then((res) => this._getResponseData(res));
   }
 
   /**
@@ -97,9 +89,7 @@ class Api {
     return fetch(`${this._baseUrl}/cards/${id}`, {
       headers: this._headers,
       method: "DELETE",
-    })
-      .then((res) => (res.ok ? res.json() : Promise.reject(res.statusText)))
-      .catch(console.log);
+    }).then((res) => this._getResponseData(res));
   }
 
   /**
@@ -111,9 +101,7 @@ class Api {
     return fetch(`${this._baseUrl}/cards/likes/${id}`, {
       headers: this._headers,
       method: "PUT",
-    })
-      .then((res) => (res.ok ? res.json() : Promise.reject(res.statusText)))
-      .catch(console.log);
+    }).then((res) => this._getResponseData(res));
   }
 
   /**
@@ -125,9 +113,7 @@ class Api {
     return fetch(`${this._baseUrl}/cards/likes/${id}`, {
       headers: this._headers,
       method: "DELETE",
-    })
-      .then((res) => (res.ok ? res.json() : Promise.reject(res.statusText)))
-      .catch(console.log);
+    }).then((res) => this._getResponseData(res));
   }
 
   /**
@@ -140,16 +126,13 @@ class Api {
       headers: this._headers,
       method: "PATCH",
       body: JSON.stringify({ avatar: avatar["image-link"] }),
-    })
-      .then((res) => (res.ok ? res.json() : Promise.reject(res.statusText)))
-      .catch(console.log);
+    }).then((res) => this._getResponseData(res));
+  }
+
+  _getResponseData(res) {
+    if (!res.ok) {
+      return Promise.reject(`Error: ${res.status}`);
+    }
+    return res.json();
   }
 }
-
-export const api = new Api({
-  baseUrl: "https://around.nomoreparties.co/v1/group-12",
-  headers: {
-    authorization: "51cb9d12-6e1a-4c88-9721-b40c0e542029",
-    "Content-Type": "application/json",
-  },
-});

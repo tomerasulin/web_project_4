@@ -4,12 +4,14 @@ import Popup from "./Popup.js";
  * This class is a child class of the Popup class
  */
 export default class PopupWithForm extends Popup {
-  constructor(popup, handleFormSubmit) {
+  constructor(popup, handleFormSubmit, buttonText, loadingButtonText) {
     super(popup);
     this._popupForm = this._popup.querySelector(".popup-box__form");
     this._handleFormSubmit = handleFormSubmit;
     this._inputs = this._popupForm.querySelectorAll(".popup-box__input");
     this._button = this._popupForm.querySelector(".popup-box__save-btn");
+    this._buttonText = buttonText;
+    this._loadingButtonText = loadingButtonText;
   }
 
   /**
@@ -29,22 +31,20 @@ export default class PopupWithForm extends Popup {
     super.setEventListeners();
     this._popupForm.addEventListener("submit", (evt) => {
       evt.preventDefault();
-      if (this._button.name === "save") {
-        this._button.textContent = "Saving...";
-      } else {
-        this._button.textContent = "Creating...";
-      }
       this._handleFormSubmit(this._getInputValues());
     });
   }
 
   close() {
     this._popupForm.reset();
-    if (this._button.textContent === "Saving...") {
-      this._button.textContent = "Save";
-    } else {
-      this._button.textContent = "Create";
-    }
     super.close();
   }
+
+  showLoading() {
+    this._button.textContent = this._loadingButtonText
+  }
+  
+  hideLoading() {
+    this._button.textContent = this._buttonText
+  } 
 }

@@ -67,8 +67,7 @@ class Card {
    */
   likeCard(likes) {
     this._likes = likes;
-    this._showLikes.textContent = this._likes.length;
-    this._likeBtn.classList.toggle("element__like-btn_active");
+    this._renderLikes();
   }
 
   /**
@@ -87,19 +86,25 @@ class Card {
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._text.textContent = this._name;
-    this._showLikes = this._element.querySelector(".element__show-likes");
-    this._showLikes.textContent = this._likes.length;
     this._setEventListeners();
 
     if (this._ownerId !== this._userId) {
       this._deleteBtn.style.display = "none";
     }
 
-    if (this.isLiked()) {
-      this.likeCard(this._likes);
-    }
+    this._renderLikes();
+
     return this._element;
   }
+
+  _renderLikes = () => {
+    this._showLikes.textContent = this._likes.length;
+    if (this.isLiked()) {
+      this._likeBtn.classList.add("element__like-btn_active");
+    } else {
+      this._likeBtn.classList.remove("element__like-btn_active");
+    }
+  };
 }
 
 export default Card;

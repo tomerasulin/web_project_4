@@ -8,7 +8,7 @@ import PopupWithForm from "../components/PopupWithForm";
 import PopupWithConfirmation from "../components/PopupWithConfirmation";
 import FormValidator from "../components/FormValidator.js";
 import { settings } from "../utils/constants.js";
-import { api } from "../components/Api";
+import Api from "../utils/Api";
 
 //logo
 import logoSrc from "../images/HeaderLogo.svg";
@@ -36,14 +36,26 @@ const logo = document.querySelector(".header__image");
 // set the logo and image of the page
 logo.src = logoSrc;
 
+// creating an Api variable for communicate with the server
+const api = new Api({
+  baseUrl: "https://around.nomoreparties.co/v1/group-12",
+  headers: {
+    authorization: "51cb9d12-6e1a-4c88-9721-b40c0e542029",
+    "Content-Type": "application/json",
+  },
+});
+
 // create a let variable to
 let userId;
 
-api.init().then(([cardData, userData]) => {
-  userId = userData._id;
-  cardList.renderer(cardData);
-  userInfo.setUserInfo(userData);
-});
+api
+  .init()
+  .then(([cardData, userData]) => {
+    userId = userData._id;
+    cardList.renderer(cardData);
+    userInfo.setUserInfo(userData);
+  })
+  .catch(console.log);
 
 // get the user info
 const userInfo = new UserInfo({
@@ -68,29 +80,69 @@ const cardList = new Section(
 
 const imagePopup = new PopupWithImage(enlargePopup);
 
-const deleteCardPopup = new PopupWithConfirmation(deletePopup);
+const deleteCardPopup = new PopupWithConfirmation(
+  deletePopup,
+  "Yes",
+  "Loading..."
+);
 
-const userInfoPopup = new PopupWithForm(editPopup, (data) => {
-  api.editProfile(data).then((res) => {
-    userInfo.setUserInfo(res);
-    userInfoPopup.close();
-  });
-});
+const userInfoPopup = new PopupWithForm(
+  editPopup,
+  (data) => {
+    userInfoPopup.showLoading();
+    api
+      .editProfile(data)
+      .then((res) => {
+        userInfo.setUserInfo(res);
+        userInfoPopup.close();
+      })
+      .catch(console.log)
+      .finally(() => {
+        userInfoPopup.hideLoading();
+      });
+  },
+  "Save",
+  "Saving..."
+);
 
-const newCardPopup = new PopupWithForm(addPopup, (data) => {
-  api.addCard({ name: data.title, link: data["image-link"] }).then((res) => {
-    const cardElement = createCard(res);
-    cardList.addItem(cardElement);
-    newCardPopup.close();
-  });
-});
+const newCardPopup = new PopupWithForm(
+  addPopup,
+  (data) => {
+    newCardPopup.showLoading();
+    api
+      .addCard({ name: data.title, link: data["image-link"] })
+      .then((res) => {
+        const cardElement = createCard(res);
+        cardList.addItem(cardElement);
+        newCardPopup.close();
+      })
+      .catch(console.log)
+      .finally(() => {
+        newCardPopup.hideLoading();
+      });
+  },
+  "Create",
+  "Creating..."
+);
 
-const changeProfilePicPopup = new PopupWithForm(changePopup, (data) => {
-  api.updateProfilePic(data).then(() => {
-    userInfo.setAvatar(data);
-    changeProfilePicPopup.close();
-  });
-});
+const changeProfilePicPopup = new PopupWithForm(
+  changePopup,
+  (data) => {
+    changeProfilePicPopup.showLoading();
+    api
+      .updateProfilePic(data)
+      .then(() => {
+        userInfo.setAvatar(data);
+        changeProfilePicPopup.close();
+      })
+      .catch(console.log)
+      .finally(() => {
+        changeProfilePicPopup.hideLoading();
+      });
+  },
+  "Save",
+  "Saving..."
+);
 
 // set the event listeners
 userInfoPopup.setEventListeners();
@@ -154,21 +206,34 @@ function createCard(data) {
     (id) => {
       deleteCardPopup.open();
       deleteCardPopup.setAction(() => {
-        api.deleteCard(id).then(() => {
-          card.removeCard();
-          deleteCardPopup.close();
-        });
+        deleteCardPopup.showLoading();
+        api
+          .deleteCard(id)
+          .then(() => {
+            card.removeCard();
+            deleteCardPopup.close();
+          })
+          .catch(console.log)
+          .finally(() => {
+            deleteCardPopup.hideLoading();
+          });
       });
     },
     (id) => {
       if (card.isLiked()) {
-        api.dislikeCard(id).then((res) => {
-          card.likeCard(res.likes);
-        });
+        api
+          .dislikeCard(id)
+          .then((res) => {
+            card.likeCard(res.likes);
+          })
+          .catch(console.log);
       } else {
-        api.likeCard(id).then((res) => {
-          card.likeCard(res.likes);
-        });
+        api
+          .likeCard(id)
+          .then((res) => {
+            card.likeCard(res.likes);
+          })
+          .catch(console.log);
       }
     },
     "#element-template",
